@@ -5,7 +5,11 @@
     "description": "GeminiアプリのGemアイコンを好きな画像に設定する拡張機能",
     "permissions": [
         "storage",
-        "tabs"
+        "tabs",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://gemini.google.com/*"
     ],
     "icons": {
         "16": "app_icon.png",

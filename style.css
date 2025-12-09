@@ -1,78 +1,262 @@
 :root {
   --primary-color: #4285f4;
+  --primary-hover: #1a73e8;
   --background-color: #f8f9fa;
   --text-color: #202124;
-  --border-color: #dadce0;
+  --text-secondary: #5f6368;
+  --border-color: rgba(255, 255, 255, 0.18);
   --button-text-color: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(200, 210, 220, 0.4);
+  --shadow-color: rgba(0, 0, 0, 0.08);
 }
 
 body {
-  width: 280px;
+  width: 360px;
   padding: 20px;
   font-family: "Roboto", sans-serif;
   text-align: center;
-  background-color: var(--background-color);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf0 100%);
   color: var(--text-color);
 }
 
 h3 {
   margin-top: 0;
   font-weight: 500;
+  color: var(--text-color);
+  font-size: 20px;
+  letter-spacing: 0.3px;
 }
 
 p {
   margin-bottom: 15px;
   font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.drop-zone {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  margin: 20px 0;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px dashed var(--glass-border);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.drop-zone:hover {
+  border-color: var(--primary-color);
+  background: rgba(66, 133, 244, 0.05);
+}
+
+.drop-zone.drag-over {
+  border-color: var(--primary-color);
+  background: rgba(66, 133, 244, 0.1);
+  transform: scale(1.02);
+}
+
+.drop-zone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.drop-zone.has-image .drop-zone-content {
+  display: none;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--primary-color);
+  margin-bottom: 12px;
+}
+
+.drop-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+  margin: 8px 0;
+}
+
+.drop-text-or {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 8px 0;
 }
 
 .file-input-label {
-  display: inline-block;
-  padding: 8px 16px;
-  background-color: var(--button-text-color);
-  color: var(--primary-color);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 12px;
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+  pointer-events: all;
 }
+
 .file-input-label:hover {
-  background-color: #f1f3f4;
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(66, 133, 244, 0.4);
 }
+
+.folder-icon {
+  width: 18px;
+  height: 18px;
+  color: white;
+}
+
 #fileInput {
   display: none;
 }
 
-img {
-  width: 100px;
-  height: 100px;
-  margin-top: 20px;
-  border-radius: 50%;
-  display: none;
-  object-fit: cover;
-  border: 2px solid var(--border-color);
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+#preview {
+  max-width: 100%;
+  max-height: 180px;
+  border-radius: 12px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.drop-zone.has-image #preview {
+  display: block !important;
 }
 
 button {
   margin-top: 20px;
   width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  background-color: var(--primary-color);
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(66, 133, 244, 0.9) 0%,
+    rgba(26, 115, 232, 0.9) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--button-text-color);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
 }
 button:hover:not(:disabled) {
-  background-color: #1a73e8;
-  box-shadow: 0 1px 3px 1px rgba(66, 133, 244, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+  background: linear-gradient(
+    135deg,
+    rgba(66, 133, 244, 1) 0%,
+    rgba(26, 115, 232, 1) 100%
+  );
 }
 button:disabled {
-  background-color: #a0c3ff;
+  background: rgba(160, 195, 255, 0.5);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+hr {
+  margin: 25px 0;
+  border: none;
+  border-top: 1px solid rgba(200, 210, 220, 0.5);
+}
+
+.saved-gems h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 14px;
+  text-align: left;
+  color: var(--text-color);
+}
+
+.gem-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 6px;
+  transition: all 0.3s ease;
+}
+.gem-item:hover .gem-item-icon {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+.gem-item:hover .delete-gem-btn {
+  background: rgba(244, 67, 54, 0.95);
+  box-shadow: 0 3px 10px rgba(244, 67, 54, 0.4);
+}
+
+.gem-item-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  margin: 0;
+  object-fit: cover;
+  display: block;
+  opacity: 1;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.delete-gem-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  margin: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  line-height: 1;
+  background: rgba(244, 67, 54, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(244, 67, 54, 0.3);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.delete-gem-btn:hover {
+  background: rgba(244, 67, 54, 1);
+  box-shadow: 0 3px 10px rgba(244, 67, 54, 0.5);
+  transform: scale(1.1);
+}
+
+.no-gems {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-align: center;
+  font-style: italic;
+}
+
+#gemList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 4px;
 }

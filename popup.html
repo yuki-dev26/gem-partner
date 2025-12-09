@@ -12,13 +12,52 @@
   </head>
   <body>
     <h3>Gemアイコン設定</h3>
-    <p>画像を選択してください</p>
-    <label for="fileInput" class="file-input-label">画像を選択...</label>
-    <input type="file" id="fileInput" accept="image/*" />
-    <br />
-    <img id="preview" alt="プレビュー" />
-    <br />
+    <p>今表示しているGemのアイコンを変更します</p>
+    <div id="dropZone" class="drop-zone">
+      <img id="preview" alt="プレビュー" style="display: none" />
+      <div id="dropZoneContent" class="drop-zone-content">
+        <svg
+          class="upload-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <p class="drop-text">画像をドラッグ＆ドロップ</p>
+        <p class="drop-text-or">または</p>
+        <label for="fileInput" class="file-input-label">
+          <svg
+            class="folder-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
+            ></path>
+          </svg>
+          ファイルを選択
+        </label>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" />
+    </div>
     <button id="saveBtn" disabled>保存して適用</button>
+    <hr />
+    <div class="saved-gems">
+      <h4>設定済みのGem一覧</h4>
+      <div id="gemList"></div>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>

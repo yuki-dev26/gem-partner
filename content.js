@@ -1,14 +1,44 @@
+function getGemId() {
+  const match = window.location.pathname.match(/\/gem\/([^\/\?#]+)/);
+  return match ? match[1] : null;
+}
+
+function getGemDisplayName() {
+  const titleElement = document.querySelector("title");
+  if (titleElement && titleElement.textContent) {
+    const title = titleElement.textContent
+      .replace(/^Gemini\s*[-–—]\s*/, "")
+      .trim();
+    if (title && title !== "Gemini") {
+      return title;
+    }
+  }
+
+  const h1Element = document.querySelector("h1");
+  if (h1Element && h1Element.textContent) {
+    return h1Element.textContent.trim();
+  }
+
+  const gemId = getGemId();
+  return gemId ? `Gem ${gemId.substring(0, 8)}...` : null;
+}
+
 function replaceGeminiIcon() {
   if (!chrome.runtime?.id) {
     return;
   }
 
-  chrome.storage.local.get(["geminiIcon"], (result) => {
+  const gemId = getGemId();
+  if (!gemId) return;
+
+  chrome.storage.local.get(["gemIcons"], (result) => {
     if (chrome.runtime.lastError) {
       return;
     }
 
-    const myIconData = result.geminiIcon;
+    const gemIcons = result.gemIcons || {};
+    const myIconData = gemIcons[gemId];
+
     if (!myIconData) return;
 
     const targets = document.querySelectorAll(".bot-logo-text");
