@@ -1,6 +1,8 @@
 # Gem Icon Changer
 
-Gemini の Gem ごとに好きな画像をアイコンに変更できる Chrome 拡張機能です。
+Gemini アプリの Gem アイコンを好きな画像に設定できる拡張機能です。
+
+**使い方や開発の経緯については、[こちらの記事](https://note.com/yuki_tech/n/n560208ff9dea)も併せてご覧ください。**
 
 ## 機能
 
@@ -11,7 +13,7 @@ Gemini の Gem ごとに好きな画像をアイコンに変更できる Chrome 
 
 ## インストール方法
 
-1. このリポジトリをクローンまたはダウンロード
+1. このリポジトリをクローンまたは note 記事からダウンロード
 
 ```bash
 git clone https://github.com/yuki-dev26/gem-icon.git
@@ -27,7 +29,7 @@ git clone https://github.com/yuki-dev26/gem-icon.git
 
 ## 使い方
 
-1. Gem のページ（`https://gemini.google.com/gem/...`）を開く(※開いている Gem にアイコン適用されます)
+1. Gem のページ（`https://gemini.google.com/gem/...`）を開く(※開いている Gem に適用されます)
 
 2. 拡張機能アイコンをクリック
 
@@ -62,11 +64,12 @@ gem-icon/
 
 ## 注意事項
 
-- **Gem ページでのみ動作**: Gem のページ（`/gem/...`）で拡張機能を開いてください
+- **Gem ページでのみ動作**: Gem のページ（`/gem/...`）で拡張機能を使ってください
+- **動作環境**: PC の Chrome ブラウザでのみ挙動確認済み
 - **自動保存**: 設定は Chrome のローカルストレージに保存されます
 - **推奨画像**: 正方形の画像が最適です（円形に表示されます）
 - **削除**: 拡張機能を削除または無効にすると全ての設定がリセットされます
-- **非公式**: Google 非公式の拡張機能です。自己責任でお使いください
+- **非公式**: 非公式の拡張機能です。自己責任でお使いください
 
 ## ライセンス
 
@@ -74,4 +77,4 @@ MIT License
 
 ## 作者
 
-yuki-P
+[yuki-P](https://x.com/yuki_p02)

@@ -11,7 +11,6 @@ async function getCurrentGemInfo() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
   if (!tab.url || !tab.url.includes("gemini.google.com/gem/")) {
-    alert("⚠️ Gemページで拡張機能を開いてください");
     window.close();
     return null;
   }
@@ -74,7 +73,6 @@ async function getCurrentGemInfo() {
     console.error("Error getting gem info:", error);
   }
 
-  alert("Gem情報を取得できませんでした");
   return null;
 }
 
@@ -116,8 +114,6 @@ function deleteGemIcon(gemId) {
     const gemIcons = result.gemIcons || {};
     const gemDisplayNames = result.gemDisplayNames || {};
 
-    if (!confirm(`アイコンの設定を削除しますか?`)) return;
-
     delete gemIcons[gemId];
     delete gemDisplayNames[gemId];
 
@@ -129,7 +125,6 @@ function deleteGemIcon(gemId) {
         fileInput.value = "";
         saveBtn.disabled = true;
       }
-      alert(`アイコンの設定を削除しました`);
 
       const [tab] = await chrome.tabs.query({
         active: true,
@@ -144,7 +139,6 @@ function deleteGemIcon(gemId) {
 
 function handleImageFile(file) {
   if (!file || !file.type.startsWith("image/")) {
-    alert("画像ファイルを選択してください");
     return;
   }
 
@@ -192,7 +186,6 @@ dropZone.addEventListener("drop", (e) => {
 
 saveBtn.addEventListener("click", () => {
   if (!currentGemId) {
-    alert("Gem情報を取得できませんでした。");
     return;
   }
 
@@ -209,9 +202,6 @@ saveBtn.addEventListener("click", () => {
   } else if (previewImg.src && previewImg.src.startsWith("data:")) {
     imageDataToSave = previewImg.src;
     saveToStorage(imageDataToSave);
-  } else {
-    alert("画像が選択されていません。");
-    return;
   }
 });
 
@@ -224,7 +214,6 @@ function saveToStorage(imageData) {
     gemDisplayNames[currentGemId] = currentGemDisplayName;
 
     chrome.storage.local.set({ gemIcons, gemDisplayNames }, async () => {
-      alert(`アイコンを保存しました！`);
       displayGemList();
 
       const [tab] = await chrome.tabs.query({
