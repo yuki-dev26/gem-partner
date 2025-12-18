@@ -253,8 +253,14 @@ downloadLogBtn.addEventListener("click", async () => {
       a.href = url;
 
       const now = new Date();
-      const timestamp = now.toISOString().replace(/[:.]/g, "-").slice(0, 19);
-      a.download = `gemini_chat_log_${timestamp}.jsonl`;
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
+      const timestamp = `${year}-${month}-${day}T${hours}-${minutes}-${seconds}`;
+      a.download = `gem_chat_log_${timestamp}.jsonl`;
 
       document.body.appendChild(a);
       a.click();
