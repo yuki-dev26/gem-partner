@@ -79,9 +79,12 @@ gem-partner/
 - **削除**: 拡張機能を削除または無効にすると全ての設定がリセットされます
 - **非公式**: 非公式の拡張機能です。自己責任でお使いください
 
-## ライセンス
+## License
 
-MIT License
+Copyright (c) 2025 yuki-P
+Licensed under the [MIT License](LICENSE).
+
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## 作者
 
