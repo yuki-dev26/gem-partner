@@ -28,18 +28,13 @@ function replaceGeminiIcon() {
     return;
   }
 
-  const gemId = getGemId();
-  if (!gemId) return;
-
   chrome.storage.local.get(["gemIcons"], (result) => {
     if (chrome.runtime.lastError) {
       return;
     }
 
     const gemIcons = result.gemIcons || {};
-    const myIconData = gemIcons[gemId];
-
-    if (!myIconData) return;
+    const currentPageGemId = getGemId();
 
     const targets = document.querySelectorAll(".bot-logo-text");
 
@@ -47,6 +42,25 @@ function replaceGeminiIcon() {
       if (div.querySelector(".custom-gemini-icon")) {
         return;
       }
+
+      let targetGemId = null;
+
+      const parentLink = div.closest('a[href^="/gem/"]');
+      if (parentLink) {
+        const href = parentLink.getAttribute("href");
+        const match = href.match(/\/gem\/([^\/\?#]+)/);
+        if (match) {
+          targetGemId = match[1];
+        }
+      }
+
+      if (!targetGemId && currentPageGemId) {
+        targetGemId = currentPageGemId;
+      }
+      if (!targetGemId) return;
+
+      const myIconData = gemIcons[targetGemId];
+      if (!myIconData) return;
 
       div.innerText = "";
 
@@ -62,11 +76,12 @@ function replaceGeminiIcon() {
       div.appendChild(img);
     });
 
-    // カスタムGemラベルを非表示にする
-    const labels = document.querySelectorAll(".bot-name-ugc-label");
-    labels.forEach((label) => {
-      label.style.display = "none";
-    });
+    if (currentPageGemId && gemIcons[currentPageGemId]) {
+      const labels = document.querySelectorAll(".bot-name-ugc-label");
+      labels.forEach((label) => {
+        label.style.display = "none";
+      });
+    }
   });
 }
 
