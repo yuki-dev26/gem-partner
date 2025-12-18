@@ -81,11 +81,7 @@ gem-partner/
 
 ## License
 
-Copyright (c) 2025 yuki-P
+Copyright (c) 2025 [yuki-P](https://x.com/yuki_p02)
 Licensed under the [MIT License](LICENSE).
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
-
-## 作者
-
-[yuki-P](https://x.com/yuki_p02)
