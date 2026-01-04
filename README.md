@@ -89,4 +89,4 @@ gem-partner/
 Copyright (c) 2025 [yuki-P](https://x.com/yuki_p02)
 Licensed under the [MIT License](LICENSE).
 
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
