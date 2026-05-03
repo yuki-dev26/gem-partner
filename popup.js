@@ -7,10 +7,27 @@ const dropZone = document.getElementById("dropZone");
 let currentGemId = null;
 let currentGemDisplayName = null;
 
+function extractGemIdFromPath(pathname) {
+  const match =
+    pathname.match(/\/gem\/([^\/\?#]+)/) ||
+    pathname.match(/\/gems\/([^\/\?#]+)/);
+  return match ? match[1] : null;
+}
+
 async function getCurrentGemInfo() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-  if (!tab.url || !tab.url.includes("gemini.google.com/gem/")) {
+  if (!tab.url) {
+    window.close();
+    return null;
+  }
+
+  const currentUrl = new URL(tab.url);
+  if (currentUrl.hostname !== "gemini.google.com") {
+    window.close();
+    return null;
+  }
+  if (!extractGemIdFromPath(currentUrl.pathname)) {
     window.close();
     return null;
   }
@@ -19,10 +36,15 @@ async function getCurrentGemInfo() {
     const results = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: () => {
-        const match = window.location.pathname.match(/\/gem\/([^\/\?#]+)/);
-        if (!match) return null;
+        const getGemId = () => {
+          const match =
+            window.location.pathname.match(/\/gem\/([^\/\?#]+)/) ||
+            window.location.pathname.match(/\/gems\/([^\/\?#]+)/);
+          return match ? match[1] : null;
+        };
 
-        const gemId = match[1];
+        const gemId = getGemId();
+        if (!gemId) return null;
 
         let displayName = null;
         const titleElement = document.querySelector("title");
@@ -64,7 +86,7 @@ async function getCurrentGemInfo() {
             dropZone.classList.add("has-image");
             saveBtn.disabled = false;
           }
-        }
+        },
       );
 
       return result.gemId;
@@ -269,13 +291,13 @@ downloadLogBtn.addEventListener("click", async () => {
     } else {
       console.error("ログデータの取得に失敗しました", response);
       alert(
-        "ログが見つかりませんでした。ページが正しく読み込まれているか確認してください。"
+        "ログが見つかりませんでした。ページが正しく読み込まれているか確認してください。",
       );
     }
   } catch (error) {
     console.error("通信エラー:", error);
     alert(
-      "コンテンツスクリプトとの通信に失敗しました。ページをリロードして再試行してください。"
+      "コンテンツスクリプトとの通信に失敗しました。ページをリロードして再試行してください。",
     );
   }
 });

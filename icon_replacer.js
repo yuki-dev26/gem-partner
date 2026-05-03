@@ -1,7 +1,7 @@
 function getGemId() {
   const match =
     window.location.pathname.match(/\/gem\/([^\/\?#]+)/) ||
-    window.location.pathname.match(/\/gems\/edit\/([^\/\?#]+)/);
+    window.location.pathname.match(/\/gems\/([^\/\?#]+)/);
   return match ? match[1] : null;
 }
 
@@ -47,10 +47,11 @@ function replaceGeminiIcon() {
 
       let targetGemId = null;
 
-      const parentLink = div.closest('a[href^="/gem/"]');
+      const parentLink = div.closest('a[href^="/gem/"], a[href^="/gems/"]');
       if (parentLink) {
         const href = parentLink.getAttribute("href");
-        const match = href.match(/\/gem\/([^\/\?#]+)/);
+        const match =
+          href.match(/\/gem\/([^\/\?#]+)/) || href.match(/\/gems\/([^\/\?#]+)/);
         if (match) {
           targetGemId = match[1];
         }
